@@ -1,0 +1,64 @@
+<div>
+  <form [formGroup]='form' (ngSubmit)="submit()">
+    <div>
+      <label for='name'>Name</label>
+      <input type='text'
+             id='name'
+             formControlName='name'
+      >
+    </div>
+
+    <div>
+    <label class="block" for='divisionId'>
+      <span class="text-gray-700">Division</span>
+      <select class="block w-full mt-1"
+              formControlName='divisionId'
+              id='divisionId'
+      >
+        @for (division of divisions(); track division.id) {
+          <option [value]='division.id'>
+            {{ division.name }}
+          </option>
+        }
+      </select>
+    </label>
+    </div>
+
+    <div>
+      <label for='numberOfProperties'>Number Of Properties</label>
+      <input type='number'
+             id='numberOfProperties'
+             formControlName='numberOfProperties'
+      >
+    </div>
+    <div>
+      <label for='numberOfNotListedUnits'>Number Of Not Listed Units</label>
+      <input type='number'
+             id='numberOfNotListedUnits'
+             formControlName='numberOfNotListedUnits'
+      >
+    </div>
+    <div>
+      <label for='numberOfAvailableUnits'>Number Of Available Units</label>
+      <input type='number'
+             id='numberOfAvailableUnits'
+             formControlName='numberOfAvailableUnits'
+      >
+    </div>
+    <div>
+      <label for='numberOfInProgressUnits'>Number Of In Progress Units</label>
+      <input type='number'
+             id='numberOfInProgressUnits'
+             formControlName='numberOfInProgressUnits'
+      >
+    </div>
+    <div>
+      <label for='numberOfActiveUnits'>Number Of Active Units</label>
+      <input type='number'
+             id='numberOfActiveUnits'
+             formControlName='numberOfActiveUnits'
+      >
+    </div>
+    <button [disabled]="form.invalid">Add Company</button>
+  </form>
+</div>

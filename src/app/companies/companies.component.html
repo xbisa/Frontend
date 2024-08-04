@@ -1,0 +1,62 @@
+<table mat-table [dataSource]="data()">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Company</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.name }} <br>
+      {{ divisionsMap().get(+element.divisionId)?.zip }} {{ divisionsMap().get(+element.divisionId)?.city }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="divisionId">
+    <th mat-header-cell *matHeaderCellDef>Division</th>
+    <td mat-cell *matCellDef="let element">{{ divisionsMap().get(+element.divisionId)?.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfProperties">
+    <th mat-header-cell *matHeaderCellDef>Properties</th>
+    <td mat-cell *matCellDef="let element">{{ element.numberOfProperties }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfNotListedUnits">
+    <th mat-header-cell *matHeaderCellDef>Not Listed Units</th>
+    <td mat-cell *matCellDef="let element">{{ element.numberOfNotListedUnits }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfAvailableUnits">
+    <th mat-header-cell *matHeaderCellDef>Available Units</th>
+    <td mat-cell *matCellDef="let element">{{ element.numberOfAvailableUnits }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfInProgressUnits">
+    <th mat-header-cell *matHeaderCellDef>In Progress Units</th>
+    <td mat-cell *matCellDef="let element">{{ element.numberOfInProgressUnits }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfActiveUnits">
+    <th mat-header-cell *matHeaderCellDef>Active Units</th>
+    <td mat-cell *matCellDef="let element">{{ element.numberOfActiveUnits }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdAt">
+    <th mat-header-cell *matHeaderCellDef>Created</th>
+    <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button title="Delete Company" (click)="delete(element.id)">X</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [length]="length()" [pageSize]="pageSize"></mat-paginator>
+@if (!showAddCompanyForm()) {
+  <button title="Add Company" (click)="toggle()">+</button>
+} @else {
+  <app-company-add (submitted)="addCompany($event)"
+                   [divisions]="divisions()"/>
+}
+
